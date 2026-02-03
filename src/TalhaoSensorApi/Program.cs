@@ -12,14 +12,12 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers().AddJsonOptions(o =>
 {
-    // Registrar conversor para DateOnly para aceitar/retornar AAAA-MM-DD
     o.JsonSerializerOptions.Converters.Add(new TalhaoSensorApi.JsonConverters.DateOnlyJsonConverter());
 });
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
-    // Mapear DateOnly para string 'date' no Swagger (mostra como "2026-01-02")
     c.MapType<DateOnly>(() => new OpenApiSchema
     {
         Type = "string",
